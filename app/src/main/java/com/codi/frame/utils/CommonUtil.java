@@ -1,6 +1,9 @@
 package com.codi.frame.utils;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.os.Binder;
 import android.view.inputmethod.InputMethodManager;
 
 /**
@@ -23,6 +26,21 @@ public class CommonUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * check whether app has some permission
+     * @param context
+     * @param permission
+     * @return
+     */
+    public static boolean hasPermission(Context context, String permission) {
+        try {
+            return context.checkPermission(permission, Binder.getCallingPid(), Binder.getCallingUid()) == PackageManager.PERMISSION_GRANTED;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }
