@@ -12,17 +12,14 @@ import android.view.inputmethod.InputMethodManager;
 public class CommonUtil {
 
     /**
-     * hide soft input.
+     * show or hide soft input.
      *
-     * @param activity
+     * @param context
      */
-    public static void hideSoftInput(Activity activity) {
+    public static void toggleSoftInput(Context context) {
         try {
-            InputMethodManager inputMethodManager = (InputMethodManager) activity
-                    .getSystemService(Activity.INPUT_METHOD_SERVICE);
-
-            inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(),
-                    InputMethodManager.HIDE_NOT_ALWAYS);
+            InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
         } catch (Exception e) {
             e.printStackTrace();
         }
