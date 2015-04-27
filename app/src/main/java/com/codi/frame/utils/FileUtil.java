@@ -179,7 +179,7 @@ public class FileUtil {
 	/**
 	 * 拷贝Asset文件到目标位置
 	 * @param context
-	 * @param filename
+	 * @param assetName
 	 * @param destinPath
 	 */
 	public static void copyAssetFile(Context context, String assetPath, String assetName, String destinPath) {
@@ -222,4 +222,20 @@ public class FileUtil {
 	public static String createHashCode(String url) {
 		return String.valueOf(url.hashCode());
 	}
+
+    public static String[] readFilenames(String path) {
+        File dir = new File(path);
+        if(!dir.isDirectory()) {
+            throw new IllegalArgumentException(path + " is not a directory.");
+        }
+        File[] files = dir.listFiles();
+        if(files != null) {
+            String[] filenames = new String[files.length];
+            for(int i = 0, length = files.length; i < length; i++) {
+                filenames[i] = files[i].getAbsolutePath();
+            }
+            return filenames;
+        }
+        return null;
+    }
 }

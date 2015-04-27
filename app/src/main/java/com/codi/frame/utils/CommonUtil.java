@@ -25,7 +25,7 @@ public class CommonUtil {
         }
     }
 
-    /**
+    /**n
      * check whether app has some permission
      * @param context
      * @param permission

@@ -1,8 +1,11 @@
 package com.codi.frame.utils;
 
+import android.os.ParcelFileDescriptor;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -208,7 +211,30 @@ public final class StreamUtils {
 		}
 	}
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    public static String readFromPFD(ParcelFileDescriptor parcelFileDescriptor) {
+
+        if (parcelFileDescriptor == null) {
+            return null;
+        }
+
+        FileReader fr = null;
+        char[] buffer = new char[StreamUtils.IO_BUFFER_SIZE];
+
+        try {
+            StringBuilder strBuilder = new StringBuilder();
+            fr = new FileReader(parcelFileDescriptor.getFileDescriptor());
+            while (fr.read(buffer) != StreamUtils.END_OF_STREAM) {
+                strBuilder.append(buffer);
+            }
+
+            return strBuilder.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            StreamUtils.close(fr);
+            StreamUtils.close(parcelFileDescriptor);
+        }
+
+        return null;
+    }
 }
