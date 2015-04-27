@@ -142,9 +142,6 @@ public final class TextUtils {
 		return characters;
 	}
 
-	/**
-	 * As opposed to {@link ArrayUtils#isEmpty(Object[])}, this method performs a {@link android.text.TextUtils#isEmpty(String)} check on all elements of the array.
-	 */
 	public static boolean isEmpty(final CharSequence[] pTexts) {
 		if (pTexts == null) {
 			return true;
