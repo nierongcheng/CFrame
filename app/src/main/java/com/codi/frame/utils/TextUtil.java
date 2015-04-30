@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public final class TextUtils {
+public final class TextUtil {
 
 	public static final Pattern SPLITPATTERN_SPACE = Pattern.compile(" ");
 	public static final Pattern SPLITPATTERN_SPACES = Pattern.compile(" +");
 	public static final Pattern SPLITPATTERN_COMMA = Pattern.compile(",");
 
-	private TextUtils() {
+	private TextUtil() {
 
 	}
 
@@ -64,7 +64,7 @@ public final class TextUtils {
 	 * Same behavior as <code>String.split("" + pCharacter);</code> .
 	 */
 	public static final ArrayList<CharSequence> split(final CharSequence pText, final char pCharacter) {
-		return TextUtils.split(pText, pCharacter, new ArrayList<CharSequence>());
+		return TextUtil.split(pText, pCharacter, new ArrayList<CharSequence>());
 	}
 
 	/**
@@ -72,7 +72,7 @@ public final class TextUtils {
 	 * Same behavior as <code>String.split("" + pCharacter);</code> .
 	 */
 	public static final <L extends List<CharSequence>> L split(final CharSequence pText, final char pCharacter, final L pResult) {
-		final int partCount = TextUtils.countOccurrences(pText, pCharacter) + 1;
+		final int partCount = TextUtil.countOccurrences(pText, pCharacter) + 1;
 
 		if (partCount == 0) {
 			pResult.add(pText);
@@ -118,7 +118,7 @@ public final class TextUtils {
 	}
 
 	public static int countCharacters(final List<CharSequence> pTexts) {
-		return TextUtils.countCharacters(pTexts, false);
+		return TextUtil.countCharacters(pTexts, false);
 	}
 
 	public static int countCharacters(final List<CharSequence> pTexts, final boolean pIgnoreWhitespaces) {

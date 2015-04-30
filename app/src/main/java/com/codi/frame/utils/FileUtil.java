@@ -35,34 +35,6 @@ public class FileUtil {
 	}
 
 	/**
-	 * 删除文件夹和里面所有的文件
-	 */
-	public static void deleteFloder(String path) {
-		File file = new File(path);
-
-		if (!file.exists())
-			return;
-
-		if (file.isFile()) {
-			file.delete();
-			return;
-		}
-
-		if (file.isDirectory()) {
-			File[] childFiles = file.listFiles();
-			if (childFiles == null || childFiles.length == 0) {
-				file.delete();
-				return;
-			}
-
-			for (int i = 0; i < childFiles.length; i++) {
-				deleteFloder(childFiles[i].getPath());
-			}
-			file.delete();
-		}
-	}
-
-	/**
 	 * 创建目录
 	 */
 	public static void createDirectory(String dir) {
@@ -72,32 +44,32 @@ public class FileUtil {
 		}
 	}
 
-	/**
-	 * 删除文件或目录
-	 */
-	public static void deleteFile(String path) {
-		if (path == null)
-			return;
+    /**
+     * Deletes a file or directory, with optional recursion.
+     * @param path File or directory path to delete.
+     * @param recursive Whether to delete all subdirectories and files.
+     */
+    public static void delete(String path, boolean recursive) {
+        File file = new File(path);
+        if(file.exists()) {
+            delete(file, recursive);
+        }
+    }
 
-		File file = new File(path);
-		if (!file.exists()) // 不存在
-			return;
-
-		if (file.isFile()) { // 是文件
-			file.delete();
-		}
-		if (file.isAbsolute()) { // 是目录
-			File[] childFiles = file.listFiles();
-			if (childFiles == null || childFiles.length == 0) { // 子目录为空
-				file.delete();
-				return;
-			}
-			for (File f : childFiles) {
-				FileUtil.deleteFile(f.getPath());
-			}
-			file.delete();
-		}
-	}
+    /**
+     * Deletes a file or directory, with optional recursion.
+     * @param path File or directory to delete.
+     * @param recursive Whether to delete all subdirectories and files.
+     */
+    public static void delete(File path, boolean recursive) {
+        if (recursive && path.isDirectory()) {
+            String[] children = path.list();
+            for (String child : children) {
+                delete(new File(path, child), recursive);
+            }
+        }
+        path.delete();
+    }
 
 	/**
 	 * 取得文件名，不要后缀<br>
@@ -125,7 +97,7 @@ public class FileUtil {
 
 		File destinFile = new File(destin);
 		destinFile.getParentFile().mkdirs();
-		deleteFile(destin);
+		FileUtil.delete(destin, true);
 		FileInputStream fis = null;
 		FileOutputStream fos = null;
 		try {
@@ -200,18 +172,16 @@ public class FileUtil {
 	        }
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        deleteFile(newFilePath);
+            FileUtil.delete(newFilePath, true);
 	    } finally {
 	    	try {
 				if(in != null) {
 					in.close();
-					in = null;
 				}
 				
 				if(out != null) {
 					out.flush();
 			        out.close();
-			        out = null;
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

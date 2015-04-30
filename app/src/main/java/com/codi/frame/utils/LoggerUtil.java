@@ -12,20 +12,20 @@ import com.codi.frame.BuildConfig;
  * @author zzw
  * 
  */
-public class Logger {
+public class LoggerUtil {
 
 	public final static String tag = "[KeyLinks]";
 	private final static int logLevel = Log.DEBUG;
-	private static Hashtable<String, Logger> sLoggerTable = new Hashtable<String, Logger>();
+	private static Hashtable<String, LoggerUtil> sLoggerTable = new Hashtable<String, LoggerUtil>();
 	private String mClassName;
 
-	private static Logger Clog;
-	private static Logger Klog;
+	private static LoggerUtil Clog;
+	private static LoggerUtil Klog;
 
 	private static final String Codi = "@Codi@ ";
 	private static final String Kevin = "@Kevin@ ";
 
-	private Logger(String name) {
+	private LoggerUtil(String name) {
 		mClassName = name;
 	}
 
@@ -35,10 +35,10 @@ public class Logger {
 	 * @return
 	 */
 	@SuppressWarnings("unused")
-	private static Logger getLogger(String className) {
-		Logger classLogger = (Logger) sLoggerTable.get(className);
+	private static LoggerUtil getLogger(String className) {
+		LoggerUtil classLogger = (LoggerUtil) sLoggerTable.get(className);
 		if (classLogger == null) {
-			classLogger = new Logger(className);
+			classLogger = new LoggerUtil(className);
 			sLoggerTable.put(className, classLogger);
 		}
 		return classLogger;
@@ -49,9 +49,9 @@ public class Logger {
 	 * 
 	 * @return
 	 */
-	public static Logger Clog() {
+	public static LoggerUtil Clog() {
 		if (Clog == null) {
-			Clog = new Logger(Codi);
+			Clog = new LoggerUtil(Codi);
 		}
 		return Clog;
 	}
@@ -61,9 +61,9 @@ public class Logger {
 	 * 
 	 * @return
 	 */
-	public static Logger Klog() {
+	public static LoggerUtil Klog() {
 		if (Klog == null) {
-			Klog = new Logger(Kevin);
+			Klog = new LoggerUtil(Kevin);
 		}
 		return Klog;
 	}

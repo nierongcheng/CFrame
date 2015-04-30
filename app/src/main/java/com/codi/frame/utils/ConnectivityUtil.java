@@ -13,9 +13,9 @@ import android.net.NetworkInfo;
  * @author Nicolas Gramlich
  * @since 19:33:01 - 21.05.2013
  */
-public final class ConnectivityUtils {
+public final class ConnectivityUtil {
 
-	private ConnectivityUtils() {
+	private ConnectivityUtil() {
 
 	}
 
@@ -29,7 +29,7 @@ public final class ConnectivityUtils {
 	 * @return
 	 */
 	public static NetworkInfo getNetworkInfo(final Context pContext, final int pNetworkType) {
-		return ConnectivityUtils.getConnectivityManager(pContext).getNetworkInfo(pNetworkType);
+		return ConnectivityUtil.getConnectivityManager(pContext).getNetworkInfo(pNetworkType);
 	}
 	
 	public static boolean isNetworkAvailable(Context context) {
@@ -51,7 +51,7 @@ public final class ConnectivityUtils {
 	 * @return
 	 */
 	public static boolean isNetworkAvailable(final Context pContext, final int pNetworkType) {
-		return ConnectivityUtils.getNetworkInfo(pContext, pNetworkType).isAvailable();
+		return ConnectivityUtil.getNetworkInfo(pContext, pNetworkType).isAvailable();
 	}
 	
 	/**
@@ -89,7 +89,7 @@ public final class ConnectivityUtils {
 	 * @return
 	 */
 	public static boolean isNetworkConnected(final Context pContext, final int pNetworkType) {
-		return ConnectivityUtils.getNetworkInfo(pContext, pNetworkType).isConnected();
+		return ConnectivityUtil.getNetworkInfo(pContext, pNetworkType).isConnected();
 	}
 
 	/**
@@ -98,19 +98,19 @@ public final class ConnectivityUtils {
 	 * @return
 	 */
 	public static boolean isNetworkConnectedOrConnecting(final Context pContext, final int pNetworkType) {
-		return ConnectivityUtils.getNetworkInfo(pContext, pNetworkType).isConnectedOrConnecting();
+		return ConnectivityUtil.getNetworkInfo(pContext, pNetworkType).isConnectedOrConnecting();
 	}
 
 	public static boolean isWifiAvailable(final Context pContext) {
-		return ConnectivityUtils.isNetworkAvailable(pContext, ConnectivityManager.TYPE_WIFI);
+		return ConnectivityUtil.isNetworkAvailable(pContext, ConnectivityManager.TYPE_WIFI);
 	}
 
 	public static boolean isWifiConnected(final Context pContext) {
-		return ConnectivityUtils.isNetworkConnected(pContext, ConnectivityManager.TYPE_WIFI);
+		return ConnectivityUtil.isNetworkConnected(pContext, ConnectivityManager.TYPE_WIFI);
 	}
 
 	public static boolean isWifiConnectedOrConnecting(final Context pContext) {
-		return ConnectivityUtils.isNetworkConnectedOrConnecting(pContext, ConnectivityManager.TYPE_WIFI);
+		return ConnectivityUtil.isNetworkConnectedOrConnecting(pContext, ConnectivityManager.TYPE_WIFI);
 	}
 	
     /**
