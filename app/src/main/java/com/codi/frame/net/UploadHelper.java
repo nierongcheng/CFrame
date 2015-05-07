@@ -1,18 +1,15 @@
 package com.codi.frame.net;
 
-import java.util.HashMap;
-
 import android.os.AsyncTask;
 
-import com.deyi.keylinks2.model.FormFile;
-import com.deyi.keylinks2.util.UploadUtil;
+import com.codi.frame.model.FormFile;
+import com.codi.frame.utils.UploadUtil;
+
+import java.util.HashMap;
 
 /**
  * Title: UploadHelper
  * Description: 管理文件后台上传
- * Company: Deyiff
- * @author Kevin
- * @date 2014年5月21日
  */
 public class UploadHelper extends AsyncTask<String, Void, String> {
 	private String requestURL;		//请求的url
@@ -22,10 +19,11 @@ public class UploadHelper extends AsyncTask<String, Void, String> {
 	private HashMap<String, String> mHeaders;
 	
 	/**
-	 * @param context
+	 * @param headers			表头
+	 * @param uploadListener	上传监听
 	 * @param requestURL		请求的URL
 	 * @param formParams		表单的其他元素
-	 * @param formFile			表单文件
+	 * @param formFiles			表单文件
 	 */
 	public UploadHelper(HashMap<String, String> headers, UploadListener uploadListener, String requestURL, HashMap<String,String> formParams, FormFile... formFiles) {
 		this.requestURL = requestURL;
@@ -39,9 +37,9 @@ public class UploadHelper extends AsyncTask<String, Void, String> {
 	}
 	
 	/**
-	 * @param context
+	 * @param uploadListener	上传监听
 	 * @param requestURL		请求的URL
-	 * @param formFile			表单文件
+	 * @param formFiles			表单文件
 	 */
 	public UploadHelper(UploadListener uploadListener, String requestURL, HashMap<String,String> formParams, FormFile... formFiles) {
 		this(null, uploadListener, requestURL, formParams, formFiles);

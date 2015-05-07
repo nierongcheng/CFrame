@@ -8,7 +8,7 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.StringRequest;
 import com.codi.frame.App;
-import com.codi.frame.utils.ApplicationUtil;
+import com.codi.frame.utils.CommonUtil;
 
 /**
  * Title: MyRequest
@@ -24,7 +24,7 @@ public class MyRequest extends StringRequest {
 		
 		mHeaders = new HashMap<String, String>();
 		mHeaders.put("x-client-udid", App.getInstance().IMEI);
-		mHeaders.put("x-client-ver", ApplicationUtil.getAppVersionName());
+		mHeaders.put("x-client-ver", CommonUtil.getAppVersionName());
 		mHeaders.put("x-client-identifier", "android");
 		
 	}

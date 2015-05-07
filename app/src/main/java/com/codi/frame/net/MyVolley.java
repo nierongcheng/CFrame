@@ -1,9 +1,12 @@
 package com.codi.frame.net;
 
+import android.app.ActivityManager;
 import android.content.Context;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.codi.frame.net.image.BitmapLruImageCache;
 
 /**
  * Title: RequestManager
@@ -13,8 +16,8 @@ import com.android.volley.toolbox.Volley;
  */
 public class MyVolley {
 
-	private static RequestQueue mRequestQueue;
-//    private static ImageLoader mImageLoader;
+	private static RequestQueue sRequestQueue;
+    private static ImageLoader sImageLoader;
 
 
     private MyVolley() {
@@ -23,19 +26,26 @@ public class MyVolley {
 
 
     public static void init(Context context) {
-        mRequestQueue = Volley.newRequestQueue(context);
+        if (sRequestQueue == null) {
+            sRequestQueue = Volley.newRequestQueue(context);
+        }
 
-//        int memClass = ((ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE))
-//                .getMemoryClass();
-//        // Use 1/8th of the available memory for this memory cache.
-//        int cacheSize = 1024 * 1024 * memClass / 8;
-//        mImageLoader = new ImageLoader(mRequestQueue, new BitmapLruCache(cacheSize));
+    }
+
+    public static void initImageLoader(Context context) {
+        if (sImageLoader == null) {
+            int memClass = ((ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE))
+                    .getMemoryClass();
+            // Use 1/8th of the available memory for this memory cache.
+            int cacheSize = 1024 * 1024 * memClass / 8;
+            sImageLoader = new ImageLoader(sRequestQueue, new BitmapLruImageCache(cacheSize));
+        }
     }
 
 
     public static RequestQueue getRequestQueue() {
-        if (mRequestQueue != null) {
-            return mRequestQueue;
+        if (sRequestQueue != null) {
+            return sRequestQueue;
         } else {
             throw new IllegalStateException("RequestQueue not initialized");
         }
@@ -49,12 +59,12 @@ public class MyVolley {
      * 
      * @return
      */
-//    public static ImageLoader getImageLoader() {
-//        if (mImageLoader != null) {
-//            return mImageLoader;
-//        } else {
-//            throw new IllegalStateException("ImageLoader not initialized");
-//        }
-//    }
+    public static ImageLoader getImageLoader() {
+        if (sImageLoader != null) {
+            return sImageLoader;
+        } else {
+            throw new IllegalStateException("ImageLoader not initialized");
+        }
+    }
 	
 }
