@@ -127,4 +127,27 @@ public class BitmapDrawableUtil {
 		drawable.draw(canvas);      // 把drawable内容画到画布中
 		return bitmap;
     }
+
+	/**
+	 * 释放Drawable
+	 * @param drawable 要释放的drawable对象
+	 * @param boundView drawable绑定的View对象
+	 */
+	public static void recycleDrawable(Drawable drawable, View boundView) {
+		if (drawable != null) {
+			drawable.setCallback(null);
+			boundView.unscheduleDrawable(drawable);
+		}
+	}
+
+	/**
+	 * 回收bitmap
+	 * @param bitmap 要回收的bitmap对象
+	 */
+	public static void recycleBitmap(Bitmap bitmap) {
+		if (bitmap != null && !bitmap.isRecycled()) {
+			bitmap.recycle();
+			bitmap = null;
+		}
+	}
 }
