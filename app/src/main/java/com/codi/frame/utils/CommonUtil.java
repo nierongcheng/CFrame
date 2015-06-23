@@ -2,8 +2,10 @@ package com.codi.frame.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.TypedArray;
 import android.os.Binder;
 import android.util.DisplayMetrics;
@@ -13,6 +15,8 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 
 import com.codi.frame.App;
+
+import java.util.List;
 
 /**
  * Created by Codi on 2015/4/20 0020.
@@ -71,6 +75,19 @@ public class CommonUtil {
             e.printStackTrace();
         }
         return false;
+    }
+
+    /**
+     * check whether intent is exist in phone.
+     * @param context
+     * @param intent
+     * @return
+     */
+    public static boolean isIntentAvailable (Context context, Intent intent) {
+        final PackageManager packageManager = context.getPackageManager();
+        List<ResolveInfo> list = packageManager.queryIntentActivities(intent,
+                PackageManager.GET_ACTIVITIES);
+        return list.size() > 0;
     }
 
     /**
