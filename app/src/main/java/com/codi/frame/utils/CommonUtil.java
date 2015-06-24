@@ -41,12 +41,12 @@ public class CommonUtil {
 
     /**
      * Attempt to hide the Android Keyboard.
-     * @param activity The current activity
+     * @param context
+     * @param view
      */
-    public static void hideSoftKeyboard(Activity activity) {
-        InputMethodManager keyboard = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-        // Not using getCurrentFocus as that sometimes is null, but the keyboard is still up.
-        keyboard.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(), 0);
+    public static void hideSoftKeyboard(Context context, View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     /**
@@ -54,12 +54,12 @@ public class CommonUtil {
      * Android should always show the keyboard at the appropriate time. This method allows you to display the keyboard
      * when Android fails to do so.
      *
-     * @param activity The current activity
+     * @param context
      * @param view The currently focused view that will receive the keyboard input
      */
-    public static void showSoftKeyboard(Activity activity, View view) {
-        InputMethodManager keyboard = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-        keyboard.showSoftInput(view, InputMethodManager.SHOW_FORCED);
+    public static void showSoftKeyboard(Context context, View view){
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.showSoftInput(view, 0);
     }
 
     /**n
