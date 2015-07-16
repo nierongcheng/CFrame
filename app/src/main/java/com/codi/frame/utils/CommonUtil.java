@@ -1,6 +1,7 @@
 package com.codi.frame.utils;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -8,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.TypedArray;
 import android.os.Binder;
+import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
@@ -83,7 +85,7 @@ public class CommonUtil {
      * @param intent
      * @return
      */
-    public static boolean isIntentAvailable (Context context, Intent intent) {
+    public static boolean isIntentAvailable(Context context, Intent intent) {
         final PackageManager packageManager = context.getPackageManager();
         List<ResolveInfo> list = packageManager.queryIntentActivities(intent,
                 PackageManager.GET_ACTIVITIES);
@@ -160,6 +162,40 @@ public class CommonUtil {
             sLastClickTime = time;
         }
         return isFlag;
+    }
+
+    public static boolean isTopApp(Context context) {
+        return isTopApp(context, context.getPackageName());
+    }
+
+    public static boolean isTopApp(Context context, String packageName) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            return judgeByCurrentProcess(context, packageName);
+        } else {
+            return judgeByCurrentTask(context, packageName);
+        }
+    }
+
+    private static boolean judgeByCurrentProcess(Context context, String packageName) {
+        ActivityManager activityManager = (ActivityManager) context
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
+        if (appProcesses == null) {
+            return false;
+        }
+        return packageName.equals(appProcesses.get(0).processName);
+    }
+
+    private static boolean judgeByCurrentTask(Context context, String packageName) {
+        ActivityManager activityManager = (ActivityManager) context
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> tasks = activityManager.getRunningTasks(1);
+        if (tasks == null || tasks.isEmpty()) {
+            return false;
+        }
+        ActivityManager.RunningTaskInfo task = tasks.get(0);
+        String taskPackageName = task.topActivity.getPackageName(); // task任务的package包名
+        return packageName.equals(taskPackageName);
     }
 
 }
