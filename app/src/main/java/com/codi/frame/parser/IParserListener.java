@@ -10,7 +10,7 @@ import com.codi.frame.model.Error;
  */
 public interface IParserListener {
 
-	public void onParserSuccess(Object result);
-	public void onParserError(Error error);
+	void onParserSuccess(Object result);
+	void onParserError(Error error);
 	
 }

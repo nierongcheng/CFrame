@@ -55,6 +55,5 @@ public class ParserFacade {
 				mParserListener.onParserSuccess(result);
 			}
 		}
-		
 	}
 }

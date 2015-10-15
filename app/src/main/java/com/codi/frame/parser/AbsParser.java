@@ -44,7 +44,7 @@ public abstract class AbsParser {
 	}
 	
 	public String detectElement(String jsonStr, String element) {
-		String elementStr = null;
+		String elementStr;
 		try {
 			JSONObject jsonObject = new JSONObject(jsonStr);
 			elementStr = jsonObject.getString(element);

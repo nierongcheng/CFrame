@@ -21,7 +21,7 @@ import com.codi.frame.net.MyRequest;
  */
 public class RequestManager {
 
-	private static RequestManager mRequestManager = new RequestManager();
+	private static RequestManager sRequestManager = new RequestManager();
 	private RequestQueue mRequestQueue;
 	
 	private RequestManager() {
@@ -29,7 +29,7 @@ public class RequestManager {
 	}
 	
 	public static RequestManager getInstance() {
-		return mRequestManager;
+		return sRequestManager;
 	}
 	
 	public void commonRepuest(String url, Listener<String> successListener, ErrorListener errorListener) {

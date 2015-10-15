@@ -8,5 +8,5 @@ package com.codi.frame.model;
  */
 public interface BaseModel {
 
-	public String getName();
+	String getName();
 }

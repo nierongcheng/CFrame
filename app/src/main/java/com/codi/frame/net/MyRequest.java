@@ -18,14 +18,14 @@ import com.codi.frame.utils.CommonUtil;
  */
 public class MyRequest extends StringRequest {
 	
-	public static final HashMap<String, String> mHeaders;
+	public static final HashMap<String, String> sHeaders;
 	
 	static {
-		
-		mHeaders = new HashMap<String, String>();
-		mHeaders.put("x-client-udid", App.getInstance().IMEI);
-		mHeaders.put("x-client-ver", CommonUtil.getAppVersionName());
-		mHeaders.put("x-client-identifier", "android");
+
+		sHeaders = new HashMap<>();
+		sHeaders.put("x-client-udid", App.getInstance().IMEI);
+		sHeaders.put("x-client-ver", CommonUtil.getAppVersionName());
+		sHeaders.put("x-client-identifier", "android");
 		
 	}
 	
@@ -41,7 +41,7 @@ public class MyRequest extends StringRequest {
 
 	@Override
 	public Map<String, String> getHeaders() throws AuthFailureError {
-		return mHeaders;
+		return sHeaders;
 	}
 	
 }
